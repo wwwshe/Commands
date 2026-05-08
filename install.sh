@@ -1,18 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$SCRIPT_DIR"
+if [[ -n "${BASH_SOURCE[0]-}" ]]; then
+  SCRIPT_SOURCE="${BASH_SOURCE[0]}"
+else
+  SCRIPT_SOURCE="$0"
+fi
 
-SOURCE_FILE="$REPO_ROOT/skill-list/skill-list.md"
+SCRIPT_DIR=""
+if [[ "$SCRIPT_SOURCE" != "bash" && "$SCRIPT_SOURCE" != "-bash" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_SOURCE")" && pwd)"
+fi
+
 REMOTE_SOURCE_URL="${COMMAND_SOURCE_URL:-https://raw.githubusercontent.com/wwwshe/Commands/main/skill-list/skill-list.md}"
 TMP_SOURCE_FILE=""
+SOURCE_FILE=""
 
-if [[ ! -f "$SOURCE_FILE" ]]; then
+if [[ -n "$SCRIPT_DIR" ]]; then
+  LOCAL_SOURCE_FILE="$SCRIPT_DIR/skill-list/skill-list.md"
+  if [[ -f "$LOCAL_SOURCE_FILE" ]]; then
+    SOURCE_FILE="$LOCAL_SOURCE_FILE"
+  fi
+fi
+
+if [[ -z "$SOURCE_FILE" ]]; then
   TMP_SOURCE_FILE="$(mktemp)"
   if ! curl -fsSL "$REMOTE_SOURCE_URL" -o "$TMP_SOURCE_FILE"; then
-    echo "Error: source command file not found locally and remote download failed." >&2
-    echo "Local: $SOURCE_FILE" >&2
+    echo "Error: source command file download failed." >&2
+    if [[ -n "${LOCAL_SOURCE_FILE:-}" ]]; then
+      echo "Local: $LOCAL_SOURCE_FILE" >&2
+    fi
     echo "Remote: $REMOTE_SOURCE_URL" >&2
     rm -f "$TMP_SOURCE_FILE"
     exit 1
