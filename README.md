@@ -19,7 +19,7 @@ bash install.sh
 ### 원격 저장소에서 원라인 설치
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/wwwshe/Commands/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/wwwshe/Commands/main/install.sh | bash -s -- "$HOME/.cursor/commands"
 ```
 
 원라인 설치 시 `install.sh`가 원격에서 `skill-list/skill-list.md`를 자동으로 내려받아 설치합니다.
@@ -34,6 +34,12 @@ curl -fsSL https://raw.githubusercontent.com/wwwshe/Commands/main/install.sh | b
 
 ```bash
 CURSOR_COMMANDS_DIR="$HOME/.cursor/commands" bash install.sh
+```
+
+또는 인자로 경로를 넘길 수 있습니다.
+
+```bash
+bash install.sh "$HOME/.cursor/commands"
 ```
 
 원격 소스 URL을 바꾸고 싶으면 `COMMAND_SOURCE_URL`을 지정할 수 있습니다.

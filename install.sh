@@ -39,8 +39,18 @@ fi
 
 if [[ -n "${CURSOR_COMMANDS_DIR:-}" ]]; then
   TARGET_DIR="$CURSOR_COMMANDS_DIR"
+elif [[ -n "${1:-}" ]]; then
+  TARGET_DIR="$1"
 else
-  read -r -p "설치할 commands 디렉터리 경로를 입력하세요: " TARGET_DIR
+  if [[ -t 0 ]]; then
+    read -r -p "설치할 commands 디렉터리 경로를 입력하세요: " TARGET_DIR
+  else
+    echo "Error: target directory is required in non-interactive mode." >&2
+    echo "Use one of:" >&2
+    echo "  CURSOR_COMMANDS_DIR=\"\$HOME/.cursor/commands\" bash install.sh" >&2
+    echo "  curl -fsSL <install.sh URL> | bash -s -- \"\$HOME/.cursor/commands\"" >&2
+    exit 1
+  fi
 fi
 
 if [[ -z "${TARGET_DIR:-}" ]]; then
