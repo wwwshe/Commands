@@ -10,6 +10,23 @@ Cursor용 커맨드 모음 저장소입니다.
 
 ### 로컬 저장소에서 설치
 
+#### Cursor
+
+```bash
+bash install.sh "$HOME/.cursor/commands"
+```
+
+#### Claude (예시 경로)
+
+```bash
+bash install.sh "$HOME/.claude/commands"
+```
+
+> Claude의 commands 디렉터리 경로는 사용 환경에 따라 다를 수 있습니다.
+> 실제 사용하는 경로에 맞게 두 번째 인자를 변경해서 설치하세요.
+
+### 대화형 설치(경로 직접 입력)
+
 ```bash
 bash install.sh
 ```
@@ -18,8 +35,16 @@ bash install.sh
 
 ### 원격 저장소에서 원라인 설치
 
+#### Cursor
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/wwwshe/Commands/main/install.sh | bash -s -- "$HOME/.cursor/commands"
+```
+
+#### Claude (예시 경로)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wwwshe/Commands/main/install.sh | bash -s -- "$HOME/.claude/commands"
 ```
 
 원라인 설치 시 `install.sh`가 원격에서 `skill-list/skill-list.md`를 자동으로 내려받아 설치합니다.
