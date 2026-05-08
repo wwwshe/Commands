@@ -22,8 +22,7 @@ bash install.sh
 curl -fsSL https://raw.githubusercontent.com/wwwshe/Commands/main/install.sh | bash
 ```
 
-> 위 원라인 설치는 `install.sh`가 실행되는 위치에 `skill-list/skill-list.md`가 함께 있어야 정상 동작합니다.
-> 즉, 단일 파일 파이프 실행보다는 레포 클론 후 `bash install.sh` 사용을 권장합니다.
+원라인 설치 시 `install.sh`가 원격에서 `skill-list/skill-list.md`를 자동으로 내려받아 설치합니다.
 
 ## 제거
 
@@ -35,5 +34,11 @@ curl -fsSL https://raw.githubusercontent.com/wwwshe/Commands/main/install.sh | b
 
 ```bash
 CURSOR_COMMANDS_DIR="$HOME/.cursor/commands" bash install.sh
+```
+
+원격 소스 URL을 바꾸고 싶으면 `COMMAND_SOURCE_URL`을 지정할 수 있습니다.
+
+```bash
+COMMAND_SOURCE_URL="https://raw.githubusercontent.com/wwwshe/Commands/main/skill-list/skill-list.md" bash install.sh
 ```
 
